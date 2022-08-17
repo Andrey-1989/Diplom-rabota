@@ -1,20 +1,25 @@
-from random import randrange
-
-import vk_api
-from vk_api.longpoll import VkLongPoll, VkEventType
-
-token = input('Token: ')
-
-vk = vk_api.VkApi(token=token)
-longpoll = VkLongPoll(vk)
+from vk_api import VkApi
+from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
+from vk_api.utils import get_random_id
 
 
-def  (user_id, message):
-    vk.method('messages.send', {': ', 'message': message, 'random_id': randrange (10 ** 7),})
+vk_session = VkApi(token='[access_token]')
+longpoll = VkBotLongPoll(vk_session, '[group_id]')
+vk = vk_session.get_api()
 
 
-for event in longpoll.listen():
-    if event.type == VkEventType.MESSAGE_NEW:
+def main():
+    for event in longpoll.listen():
+        if event.type == VkBotEventType.MESSAGE_NEW:
+            vk.messages.send(
+                random_id=get_random_id(),
+                peer_id=event.obj['peer_id'],
+                message='Test message',
+            )
+
+
+if __name__ == '__main__':
+    main()
 
         if event.to_me:
             request = event.text

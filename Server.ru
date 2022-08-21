@@ -15,7 +15,7 @@ class Server:
         self.vk = vk_api.VkApi(token=api_token)
 
         # Для использоания Long Poll API
-        self.long_poll = VkBotLongPoll(self.vk, group_id, wait=20)
+        self.long_poll = VkBot(self.vk, group_id, wait=20)
 
         # Для вызова методов vk_api
         self.vk_api = self.vk.get_api()

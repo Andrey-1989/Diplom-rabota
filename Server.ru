@@ -36,34 +36,31 @@ class Server:
     def start(self):
         for event in self.long_poll.listen():   # Слушаем сервер
 
-            # Пришло новое сообщение
-            if event.type == VkBotEventType.MESSAGE_NEW:
+status = {'stat' : 0}
 
-                username = self.get_user_name(event.object.from_id)
-                print("Username: " + username)
-                print("From: " + self.get_user_city(event.object.from_id))
-                print("Text: " + event.object.text)
-                print("Type: ", end="")
-                if event.object.id > 0:
-                    print("private message")
-                else:
-                    print("group message")
-                print(" --- ")
+    def main():
 
-                self.send_message(event.object.peer_id, f"{username}, я получил ваше сообщение!")
+    for event in longpoll.listen():
+        if event.type == VkEventType.MESSAGE_NEW and event.text :
 
-    def get_user_name(self, user_id):
-        """ Получаем имя пользователя"""
-        return self.vk_api.users.get(user_id=user_id)[0]['first_name']
-
-    def get_user_city(self, user_id):
-        """ Получаем город пользователя"""
-        return self.vk_api.users.get(user_id=user_id, fields="city")[0]["city"]['title']
-
-    def send_message(self, peer_id, message):
-        self.vk_api.messages.send(peer_id=peer_id, message=message)
+            if event.text == 'Вики' and not status['stat']:  
+                if event.from_user: 
+                    vk.messages.send(
+                        peer_id=event.obj.from_id,
+                        message='Введите запрос',
+                        random_id=get_random_id()
+                    )
+                if event.from_chat:
+                    vk.messages.send(
+                        peer_id=event.obj.peer_id,
+                        message='Введите запрос',
+                        random_id=get_random_id()
+                    )
+                status['stat'] = 1
+            elif status['stat']:
+                status['stat'] = 0
         
-        function getAttachments(data) {
+  function getAttachments(data) {
   const attachments = [];
 
   if (data.geo) {

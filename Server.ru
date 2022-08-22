@@ -63,3 +63,29 @@ class Server:
     def send_message(self, peer_id, message):
         self.vk_api.messages.send(peer_id=peer_id, message=message)
         
+        function getAttachments(data) {
+  const attachments = [];
+
+  if (data.geo) {
+    attachments.push('geo');
+  }
+
+  for (const key in data) {
+    const match = key.match(/attach(\d+)$/);
+
+    if (match) {
+      const id = match[1];
+      const kind = data[`attach${id}_kind`];
+      let type = data[`attach${id}_type`];
+
+      if (kind === 'omsg') type = 'message';
+      if (kind === 'graffiti') type = 'graffiti';
+      if (type === 'group') type = 'event';
+
+      attachments.push(type);
+    }
+  }
+
+  return attachments;
+}
+        

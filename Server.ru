@@ -43,7 +43,7 @@ status = {'stat' : 0}
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.text :
 
-            if event.text == 'Вики' and not status['stat']:  
+            if event.text == 'Привет-привет' and not status['stat']:  
                 if event.from_user: 
                     vk.messages.send(
                         peer_id=event.obj.from_id,
@@ -75,7 +75,8 @@ status = {'stat' : 0}
       const kind = data[`attach${id}_kind`];
       let type = data[`attach${id}_type`];
 
-      if (kind === 'omsg') type = 'message';
+      if (kind === 'msg') type = 'message';
+      if (kind === 'photo') type = 'photo';    
       if (kind === 'graffiti') type = 'graffiti';
       if (type === 'group') type = 'event';
 

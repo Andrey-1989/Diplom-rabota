@@ -60,30 +60,9 @@ status = {'stat' : 0}
             elif status['stat']:
                 status['stat'] = 0
         
-  function getAttachments(data) {
-  const attachments = [];
-
-  if (data.geo) {
-    attachments.push('geo');
-  }
-
-  for (const key in data) {
-    const match = key.match(/attach(\d+)$/);
-
-    if (match) {
-      const id = match[1];
-      const kind = data[`attach${id}_kind`];
-      let type = data[`attach${id}_type`];
-
-      if (kind === 'msg') type = 'message';
-      if (kind === 'photo') type = 'photo';    
-      if (kind === 'graffiti') type = 'graffiti';
-      if (type === 'group') type = 'event';
-
-      attachments.push(type);
-    }
-  }
-
-  return attachments;
-}
+    def get_photos(user_id):
+        photos = vk_user.method('photos.getAll', {'owner_id': user_id, 'extended': 1})
+        return photos
         
+    def msg(user_id, message, attachment=None, keyboard=None):
+        vk_group.method('messages.send', {'user_id': user_id, 'message': message,  'random_id': randrange(10 ** 7), 'attachment': attachment})

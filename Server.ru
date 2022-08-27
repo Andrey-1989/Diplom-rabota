@@ -34,35 +34,36 @@ class Server:
         self.send_msg(255396611, "Привет-привет!")
 
     def start(self):
-        for event in self.long_poll.listen():   # Слушаем сервер
+        for event in self.long_poll.listen():
 
-status = {'stat' : 0}
+        if event.type == VkBotEventType.MESSAGE_NEW:
 
-    def main():
+          print("Username: " + self.get_user_name(event.object.from_id))
+            print("From: " + self.get_user_city(event.object.from_id))
+            print("Text: " + event.object.text)
+            print("Type: ", end="")
+            if event.object.id > 0:
+                print("private message")
+            else:
+                print("group message")
+            print(" --- ")
 
-    for event in longpoll.listen():
-        if event.type == VkEventType.MESSAGE_NEW and event.text :
+     def get_user_name(self, user_id):
+        """ Получаем имя пользователя"""
+        return self.vk_api.user.get(user_id=user_id)[0]['first_name']
 
-            if event.text == 'Привет-привет' and not status['stat']:  
-                if event.from_user: 
-                    vk.messages.send(
-                        peer_id=event.obj.from_id,
-                        message='Введите запрос',
-                        random_id=get_random_id()
-                    )
-                if event.from_chat:
-                    vk.messages.send(
-                        peer_id=event.obj.peer_id,
-                        message='Введите запрос',
-                        random_id=get_random_id()
-                    )
-                status['stat'] = 1
-            elif status['stat']:
-                status['stat'] = 0
-        
-    def get_photos(user_id):
+     def get_user_city(self, user_id):
+        """ Получаем город пользователя"""
+        return self.vk_api.user.get(user_id=user_id, fields="city")[0]["city"]['title']
+    
+     def questionnaires(self, user_id):
+        self.quest = self.get.quest()
+        self.enum = self.get.quest()
+        vk_user.method ('get.massages', {'user_id': user_id, 'quest': quest,  'random_id': randrange(10 ** 7)})    
+         
+     def get_photos(user_id):
         photos = vk_user.method('photos.getAll', {'owner_id': user_id, 'extended': 1})
         return photos
         
-    def msg(user_id, message, attachment=None, keyboard=None):
+     def msg(user_id, message, attachment=None, keyboard=None):
         vk_group.method('messages.send', {'user_id': user_id, 'message': message,  'random_id': randrange(10 ** 7), 'attachment': attachment})

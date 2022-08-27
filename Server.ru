@@ -59,7 +59,7 @@ class Server:
      def questionnaires(self, user_id):
         self.quest = self.get.quest()
         self.enum = self.get.quest()
-        vk_user.method ('get.massages', {'user_id': user_id, 'quest': quest,  'random_id': randrange(10 ** 7)})    
+        vk_user.method ('get.messages', {'user_id': user_id, 'quest': quest,  'random_id': randrange(10 ** 7)})    
          
      def get_photos(user_id):
         photos = vk_user.method('photos.getAll', {'owner_id': user_id, 'extended': 1})

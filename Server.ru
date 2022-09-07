@@ -48,6 +48,37 @@ class Server:
                 print("group message")
             print(" --- ")
 
+    def get_connection():
+    connection = pymysql.connect(host="%name_host%",
+            user="%name_user%",
+            password="%password_user%",
+            db="vktest",
+            charset="utf8mb4",
+            cursorclass=pymysql.cursors.DictCursor)
+    return connection
+        
+    def update_position(id_user, new_position):
+    connection = get_connection()
+    try:
+        with connection.cursor() as cursor:
+            sql = "UPDATE user SET position = %s WHERE iduser = %s"
+            cursor.execute(sql, (new_position, id_user))
+        connection.commit()
+    finally:
+        connection.close()
+    return    
+        
+    def send_message(id_user, id_keyboard, message_text):
+    try:
+        vk.messages.send(
+            user_id=id_user,
+            random_id=get_random_id(),
+            attachment=get_attachment,
+            keyboard=open(id_keyboard, 'r', encoding='UTF-8').read(),
+            message=message_text)
+    except:
+        print("Ошибка отправки сообщения у id" + id_user)    
+        
      def get_user_name(self, user_id):
         """ Получаем имя пользователя"""
         return self.vk_api.user.get(user_id=user_id)[0]['first_name']

@@ -49,12 +49,12 @@ class Server:
             print(" --- ")
 
     def get_connection():
-    connection = pymysql.connect(host="%name_host%",
-            user="%name_user%",
-            password="%password_user%",
-            db="vktest",
-            charset="utf8mb4",
-            cursorclass=pymysql.cursors.DictCursor)
+          connection = pymysql.connect(host="%name_host%",
+          user="%name_user%",
+          password="%password_user%",
+          db="vktest",
+          charset="utf8mb4",
+          cursorclass=pymysql.cursors.DictCursor)
     return connection
         
     def update_position(id_user, new_position):

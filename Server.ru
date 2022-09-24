@@ -15,6 +15,7 @@ while True:
         from vk_api.bot_longpoll import VkBotLongPoll
         from vk_api.bot_longpoll import VkBotEventType
 
+        
 class Server:
 
     def __init__(self, api_token, group_id, server_name: str = "Empty"):
@@ -58,6 +59,7 @@ class Server:
                 print("group message")
                 print(" --- ")
 
+                
 def get_connection():
     connection = pymysql.connect(host="%name_host%",
     user="%name_user%",
@@ -79,6 +81,7 @@ finally:
     connection.close()
 return
 
+    
 def send_message(id_user, id_keyboard, message_text):
     try:
         vk.messages.send(

@@ -1,8 +1,21 @@
 import vk_api.vk_api
-
+from vk_api.longpoll import VkLongPoll, VkBEventType
+from vk_api.utils import get_random_id
+def write_message(sender, message):
+        authorize.method('messages.send', {'user_id': sender, 'message': message, 'random_id': get_random_id()})
 token = "vk1.a.c6wpirXIP1e9EHfBavf17mhlxvbIMHAXTjcu94p8UUvXRVXYYGnGgolfOoPnp5J6NGJ4tnLlFCKttMrKbx_XqrYxVfTvc8ihj686O-6-E8fxhA_GPNA4-ZOqwkhlQ3_yhVlkUacz-FAtFWVg1XwwV9iovHRAHojBpZ8gbK2vgCZSTokRz6XQSOireOxKN-s_"
-
-vk = vk_api.Vkapi(token = 'token')
+authorize = vk_api.VkApi(token = token)
+longpoll = VkLongpoll(authorize)
+for event in longpoll.listen():
+        if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
+            reseived_message = event.text
+            sender = event.user_id
+            if reseived_message == "Привет":
+                write_message(sender, "Добрый день!")
+            elif reseived_message == "Пока":
+                write_message(sender, "До свидания")
+            else:
+                write_message(sender, "Я вас не понимаю...")
 vk._auth_token()
 
 while True:
@@ -12,7 +25,7 @@ while True:
     if text.lower() == "привет":
         vk.method("messages.send",{"user_id":user_id,"message":"Привет, я бот, ничего не понимаю","random_id":random.randint(1,1000)})
     elif text.lower() == "фото":
-        from vk_api.bot_longpoll import VkBotLongPoll
+        from vk_api.longpoll import VkBotLongPoll
         from vk_api.bot_longpoll import VkBotEventType
 
         

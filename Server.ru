@@ -6,23 +6,22 @@ if __name__ == '__main__'
 def write_message(sender, message):
         authorize.method('messages.send', {'user_id': sender, 'message': message, 'random_id': get_random_id()}), 'attachment': ','.join(attachments)})
 token = "vk1.a.c6wpirXIP1e9EHfBavf17mhlxvbIMHAXTjcu94p8UUvXRVXYYGnGgolfOoPnp5J6NGJ4tnLlFCKttMrKbx_XqrYxVfTvc8ihj686O-6-E8fxhA_GPNA4-ZOqwkhlQ3_yhVlkUacz-FAtFWVg1XwwV9iovHRAHojBpZ8gbK2vgCZSTokRz6XQSOireOxKN-s_"
-photos = []
 authorize = vk_api.VkApi(token=token)
 longpoll = VkLongpoll(authorize)
 upload = VkUpload(authorize)
 for event in longpoll.listen():
-        if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
-            reseived_message = event.text
-            sender = event.user_id
-            attachments = []
-            upload_image = upload.photos_messages(photos=image)[0]
-            attachments.append('photo{}_{}'.format(upload_image['owner_id'], upload_image['id']))
-            if reseived_message == "Привет":
-                write_message(sender, "Добрый день!")
-            elif reseived_message == "Пока":
-                write_message(sender, "До свидания")
-            else:
-                write_message(sender, "Я вас не понимаю...")
+    if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
+         reseived_message = event.text
+         sender = event.user_id
+         attachments = []
+         upload_image = upload.photos_messages(photos=image)[0]
+         attachments.append('photo{}_{}'.format(upload_image['owner_id'], upload_image['id']))
+         if reseived_message == "Привет":
+             write_message(sender, "Добрый день!")
+         elif reseived_message == "Пока":
+             write_message(sender, "До свидания")
+         else:
+             write_message(sender, "Я вас не понимаю...")
                          
 class Server:
 
@@ -88,7 +87,6 @@ try:
 finally:
     connection.close()
 return
-
     
 def send_message(id_user, id_keyboard, message_text):
     try:

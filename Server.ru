@@ -1,7 +1,8 @@
 import vk_api.vk_api
 from vk_api import VkUpload
-from vk_api.longpoll import VkLongPoll, VkBEventType
+from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.utils import get_random_id
+if __name__ == '__main__'
 def write_message(sender, message):
         authorize.method('messages.send', {'user_id': sender, 'message': message, 'random_id': get_random_id()}), 'attachment': ','.join(attachments)})
 token = "vk1.a.c6wpirXIP1e9EHfBavf17mhlxvbIMHAXTjcu94p8UUvXRVXYYGnGgolfOoPnp5J6NGJ4tnLlFCKttMrKbx_XqrYxVfTvc8ihj686O-6-E8fxhA_GPNA4-ZOqwkhlQ3_yhVlkUacz-FAtFWVg1XwwV9iovHRAHojBpZ8gbK2vgCZSTokRz6XQSOireOxKN-s_"
@@ -22,22 +23,7 @@ for event in longpoll.listen():
                 write_message(sender, "До свидания")
             else:
                 write_message(sender, "Я вас не понимаю...")
-                    
-                    
-                    
-vk._auth_token()
-
-while True:
-    messages = vk.method("messages.getConversations",{"offset":0, "count":20, "filter": "unanswered"})
-    text = messages['items'][0]['last_message']['text']
-    user_id = messages['items'][0]['last_message']['text']['user_id']
-    if text.lower() == "привет":
-        vk.method("messages.send",{"user_id":user_id,"message":"Привет, я бот, ничего не понимаю","random_id":random.randint(1,1000)})
-    elif text.lower() == "фото":
-        from vk_api.longpoll import VkBotLongPoll
-        from vk_api.bot_longpoll import VkBotEventType
-
-        
+                         
 class Server:
 
     def __init__(self, api_token, group_id, server_name: str = "Empty"):
@@ -128,5 +114,4 @@ def get_photos(user_id):
     return photos
 
 def msg(user_id, message, attachment=None, keyboard=None):
-    vk_group.method('messages.send',
-    {'user_id': user_id, 'message': message, 'random_id': randrange(10 ** 7), 'attachment': attachment})
+    vk_group.method('messages.send', {'user_id': user_id, 'message': message, 'random_id': randrange(10 ** 7), 'attachment': attachment})

@@ -2,9 +2,9 @@ import vk_api.vk_api
 from vk_api import VkUpload
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.utils import get_random_id
-if __name__ == '__main__'
+if __name__ == '__main__':
 def write_message(sender, message):
-        authorize.method('messages.send', {'user_id': sender, 'message': message, 'random_id': get_random_id()}), 'attachment': ','.join(attachments)})
+        authorize.method(('messages.send', {'user_id': sender, 'message': message, 'random_id': get_random_id()}), 'attachment', ','.join(attachments))
 token = "vk1.a.c6wpirXIP1e9EHfBavf17mhlxvbIMHAXTjcu94p8UUvXRVXYYGnGgolfOoPnp5J6NGJ4tnLlFCKttMrKbx_XqrYxVfTvc8ihj686O-6-E8fxhA_GPNA4-ZOqwkhlQ3_yhVlkUacz-FAtFWVg1XwwV9iovHRAHojBpZ8gbK2vgCZSTokRz6XQSOireOxKN-s_"
 authorize = vk_api.VkApi(token=token)
 longpoll = VkLongpoll(authorize)
